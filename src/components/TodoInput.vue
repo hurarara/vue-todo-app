@@ -12,10 +12,23 @@
             <!-- <i class="addBtn fas fa-plus"> : 어썸 아이콘의 + 아이콘을 추가 -->
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
+
+        <modal v-if="showModal" @close="showModal = false" v-on:close="close">
+            <!-- 모달 Header -->
+            <h3 slot="header">경고</h3>
+            <!-- 모달 Body -->
+            <span slot="body">
+                할 일을 입력하세요.
+                <!-- <i class="closeModalBtn fas fa-times" aria-hidden="true"></i> -->
+            </span>
+        </modal>
     </div>
 </template>
 
 <script>
+    // Modal.vue를 컴포넌트로 등록
+    import Modal from './common/Modal.vue'
+
     export default {
         // 자바 스크립트 내용
         // 뷰 컴포넌트의 내용을 정의하는 영역, template, data, methods 등
@@ -24,7 +37,8 @@
         // 인풋 박스의 텍스트 값을 인식
         data() {
             return {
-                newTodoItem : ''
+                newTodoItem : '',
+                showModal : false   //모달 동작을 위한 플래그 값
             }
         },
         // 이벤트에 대한 로직
@@ -32,7 +46,7 @@
             // 로컬 스토리지에 데이터를 추가한다.
             // 추가 버튼이 클릭되면 인풋 박스에 값이 있을 때만 저장하고 인풋 박스를 clear 하도록 한다.
             inputAddTodo() {
-                if(this.newTodoItem) {
+                if(this.newTodoItem !==  "") {
                     var value = this.newTodoItem.trim();
 
                     // setItem()의 형식은 키, 값이다.
@@ -43,9 +57,17 @@
                     // this.newTodoItem = ''; 정도는 직접 이 부분에서 해줄 수 있으나 단일 책임원칙 디자인 패턴의 원칙에 따라 작성
                     this.clearInput();
                 }
+                else {
+                    // 텍스트 미입력 시 모달 동작
+                    this.showModal = !this.showModal;
+                }
+
             },
             clearInput() {
                 this.newTodoItem = '';
+            },
+            close() {
+                Modal.close;
             }
 
             // 기존로직
@@ -58,6 +80,9 @@
             //         this.clearInput();
             //     }
             // }
+        },
+        components : {
+            Modal : Modal   //모달 등록
         }
     }
 </script>

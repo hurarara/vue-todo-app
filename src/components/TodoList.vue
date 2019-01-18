@@ -3,12 +3,14 @@
     <!-- 화면에 표시할 요소들을 정의하는 영역, HTML+뷰 데이터 바인딩 -->
 
     <section>
-        <ul>
+        <!-- transition-group : 목록에 애니메이션을 추가할 때 사용되는 태그, tag : 애니메이션이 들어갈 html 태그 이름 -->
+        <transition-group name="list" tag="ul">
             <!-- v-for 디렉티브를 이용해 아이템의 개수만큼 반복 -->
             <!-- v-for : 지정한 뷰 데이터의 개수만큼 해당 HTML 태그를 반복 출력. -->
             <!-- index : v-for 디렉티브에서 기본적으로 제공하는 변수 -->
-            <!-- ESLint 플러그인으로 인해 에러가 기존은 맞지않는 문법이라고 나옴. 그래서 :key="index" 코드를 추가 -->
-            <li v-for="(todoItem, index) in propsdata" :key="index" class="shadow">
+            <!-- ESLint 플러그인으로 인해 에러가 기존은 맞지않는 문법이라고 나옴. 그래서 :key="todoItem" 코드를 추가 -->
+            <!-- :key : v-for 디렉티브를 사용할 때 지정하는게 좋으며, 아이템의 순서조정에 대한 돔 이동을 최소화하여 화면을 더 빨리 그릴 수 있도록 한다. -->
+            <li v-for="(todoItem, index) in propsdata" :key="todoItem" class="shadow">
                 <!-- 체크 아이콘 -->
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                 {{ todoItem }}
@@ -20,7 +22,7 @@
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                 </span>
             </li>
-        </ul>
+        </transition-group>
     </section>
 </template>
 
@@ -96,5 +98,14 @@
         margin-left: auto;
         color: #de4343;
         cursor: pointer;    /* 마우스 포인터 변경 */
+    }
+    /* 데이터가 들어오고 나가는 타임 */
+    .list-enter-active, .list-leave-active {
+        transition: all 1s;
+    }
+    /* 데이터가 들어오고 나갈 때 효과 */
+    .list-enter, .list-leave-to {
+        opacity: 0;
+        transform: translate(30px);
     }
 </style>
