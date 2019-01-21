@@ -13,6 +13,8 @@
             <i class="addBtn fas fa-plus" aria-hidden="true"></i>
         </span>
 
+        <!-- v-if : false 값을 가지면 해당 HTML 태그를 화면에 표시하거나 표시하지 않음.  -->
+        <!-- @close : close 이벤트 -->
         <modal v-if="showModal" @close="showModal = false" v-on:close="close">
             <!-- 모달 Header -->
             <h3 slot="header">경고</h3>
@@ -67,7 +69,7 @@
                 this.newTodoItem = '';
             },
             close() {
-                Modal.close;
+                'Modal'.close;
             }
 
             // 기존로직
@@ -82,7 +84,7 @@
             // }
         },
         components : {
-            Modal : Modal   //모달 등록
+            'Modal' : Modal   //모달 등록
         }
     }
 </script>
