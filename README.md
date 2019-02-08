@@ -29,7 +29,7 @@ yarn add vue-gh-pages
 "wst": "/dist/",
 "homepage": "https://github.com/hurarara/vue-todo-app",
 
-# excute this insruction
+# excute this instruction
 npm run deploy
 
 # change the "GitHub Pages Source"
